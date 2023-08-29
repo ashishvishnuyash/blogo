@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+      
+ {% block content %}
+<style>
+    
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+
+    .head_text{
+    color: white;
+  }
+    .card{
+    box-shadow: 0 16px 48px #E3E7EB;
+}
+</style>
+
+    <header class="masthead" >
+            <div class="overlay"></div>
+            
+              </header>
+        
+            <div class="container">
+                <div class="row">
+      
+              <!-- Blog Entries Column -->
+              <div class="col-md-8 mt-3 left">
+                <form method="post" action ="/blogsubmit">
+                  {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control">
+                    
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Blog</label>
+                    <textarea class="form-control" name="blog" placeholder="What's in your mind" id="floatingTextarea2" style="height: 500px"></textarea>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" name="status" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Publish</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <style>
+                    .card{
+                        box-shadow: 0 16px 48px #E3E7EB;
+                    }
+                  
+            </style>
+            
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4 float-right ">
+            <div class="card my-4">
+                    <h5 class="card-header">your post</h5>
+                <div class="card-body">
+                    {% for x in blog %}
+                    {% if x.status  %}
+                    <div class="card" style="background:lightgreen">
+                      {{x.title}}
+                      
+                      <div class="card-footer">
+                        <span class="material-icons">
+                          delete
+                          </span>
+                      </div>
+                      
+                    </div>
+                    {% else %}
+                    <div class="card" style="background:pink">
+                      {{x.title}}
+                      
+                      <div class="card-footer">
+                        <span class="material-icons">
+                          publish
+                          </span>
+
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+{%endblock%}
